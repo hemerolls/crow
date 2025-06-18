@@ -6,6 +6,7 @@ Crowd Detection with YOLOv8
 """
 
 import cv2
+import os
 import numpy as np
 from ultralytics import YOLO
 
@@ -70,12 +71,16 @@ def process_video(video_path: str, output_path: str):
                     x1, y1, x2, y2 = map(int, box.xyxy[0])
 
                     # Рисуем прямоугольник
-                    cv2.rectangle(frame, (x1, y1), (x2, y2), (127, 255, 0), 2)
+                    cv2.rectangle(
+                        frame, (x1, y1), (x2, y2), (127, 255, 0), 2
+                    )
 
                     # Подпись с уверенностью
                     label = f"person {conf:.2f}"
-                    cv2.putText(frame, label, (x1, y1 - 10),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                    cv2.putText(
+                        frame, label, (x1, y1 - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2
+                    )
 
         out.write(frame)
 
